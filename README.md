@@ -1,6 +1,6 @@
 # jr: command-line JSON processor for Rubyists
 
-jq is jq like JSON processor.  
+jr is [jq](http://stedolan.github.io/jq/) like JSON processor.  
 Its script can be written not a specific language but Ruby!
 
 ## Installation
