@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'jr/cli/version'
+require 'yajl'
+ 
+inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
+result = Enumerator.new do |yielder|
+  inputs.each do |input|
+    Yajl::Parser.new(symbolize_keys: true).parse(input) do |d|
+      yielder.yield d
+    end
+  end
+end.instance_eval(ARGV[0])
+
+encoder = Yajl::Encoder.new(pretty: true)
+
+if result.is_a? Array or result.kind_of? Enumerator
+  result.each do |data|
+    puts encoder.encode(data)
+  end
+else
+  puts encoder.encode(result)
+end
