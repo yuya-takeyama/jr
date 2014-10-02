@@ -103,9 +103,6 @@ Shortly, jr is implemented like below.
 ```ruby
 json_enumerator.instance_eval { your_jr_filter_runs_here }
 # And print its result
-
-```
-$ jr 'first' repos.json
 ```
 
 ## Contributing
