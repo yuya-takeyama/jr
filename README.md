@@ -3,6 +3,8 @@
 jr is [jq](http://stedolan.github.io/jq/) like JSON processor.  
 Its script can be written not a specific language but Ruby!
 
+![jr in action](./resources/img/jr.gif)
+
 ## Installation
 
 Add this line to your application's Gemfile:
