@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'jr/cli/version'
 require 'yajl'
- 
+
 inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
 result = Enumerator.new do |yielder|
   inputs.each do |input|
@@ -14,7 +14,7 @@ result = Enumerator.new do |yielder|
       yielder.yield d
     end
   end
-end.instance_eval(ARGV[0])
+end.lazy.instance_eval(ARGV[0])
 
 encoder = Yajl::Encoder.new(pretty: true)
 
