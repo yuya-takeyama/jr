@@ -41,12 +41,14 @@ $ curl -s 'https://api.github.com/users/yuya-takeyama/repos' > repos.json
 
 ### show repositories
 
-Because response from `GET /users/:username/repos` is wrapped with `Array`, select the first element.  
+Because response from `GET /users/:username/repos` is wrapped with `Array`, flatten it by `#flat_map`.  
 You'll get stream of JSON reperesents repositories.
 
 ```
-$ jr 'first' repos.json
+$ jr 'flat_map(&:itself)' repos.json
 ```
+
+Pro Tip: `Kernel#itself` is an identity function implemented in Ruby 2.2.0, but `jr` provides it for Ruby 2.1.0 or earlier versions.
 
 ### map to reduce data
 
@@ -54,7 +56,7 @@ Default response has too much informations.
 So reduce data using `#map` method.
 
 ```
-$ ./bin/jr 'first.map{|j| {name: j[:name], desc: j[:description], lang: j[:language]} }' repos.json
+$ jr 'flat_map(&:itself).map{|j| {name: j[:name], desc: j[:description], lang: j[:language]} }' repos.json
 {
   "name": "acne",
   "desc": "Simple DI container for PHP < 5.3",
@@ -84,7 +86,7 @@ Repositories have its primary language which is detected automatically.
 Let's aggregate it and count by languages.
 
 ```
-$ ./bin/jr 'first.map{|j| {name: j[:name], desc: j[:description], lang: j[:language]} }.reduce({}){|acc, j| l = j[:lang]; acc[l] ||= 0; acc[l] += 1; acc }' repos.json
+$ jr 'flat_map(&:itself).map{|j| {name: j[:name], desc: j[:description], lang: j[:language]} }.group_by{|j| j[:lang] }.map{|l, v| [l, v.size ] }.to_h' repos.json
 {
   "PHP": 10,
   "Ruby": 12,
