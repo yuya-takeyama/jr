@@ -7,6 +7,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'jr/cli/version'
 require 'yajl'
 
+unless Kernel.respond_to? :itself
+  module Kernel
+    def itself
+      self
+    end
+  end
+end
+
 inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
 result = Enumerator.new do |yielder|
   inputs.each do |input|
