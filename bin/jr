@@ -5,7 +5,12 @@ lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'jr/cli/version'
+require 'optparse'
 require 'yajl'
+
+opt = OptionParser.new
+opt.on('-r FILE') {|file| require file }
+opt.parse! ARGV
 
 unless Kernel.respond_to? :itself
   module Kernel
