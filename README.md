@@ -24,10 +24,14 @@ Or install it yourself as:
 jr filter can be written in Ruby!
 
 ```
-$ jr <jr filter> [file...]
+$ jr [options] <jr filter> [file...]
 ```
 
 You can also read JSON not from files but from STDIN.
+
+### options
+
+* -r FILE: require the FILE before execution
 
 ## jr filter tutorial
 
