@@ -9,7 +9,10 @@ require 'optparse'
 require 'yajl'
 
 opt = OptionParser.new
-opt.on('-r FILE') {|file| require file }
+opt.banner  = "jr - Command-line JSON processor for Rubyists [Ver. #{Jr::Cli::VERSION}]\n\n" +
+              "Usage: jr [options] <jr filter> [file...]"
+opt.version = Jr::Cli::VERSION
+opt.on('-r FILE', 'require the FILE before execution') {|file| require file }
 opt.parse! ARGV
 
 unless Kernel.respond_to? :itself
