@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["sign.of.the.wolf.pentagram@gmail.com"]
   spec.summary       = %q{jr: command-line JSON processor for Rubyists}
   spec.description   = %q{jr is jq like JSON processor. Its script can be written in Ruby}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/yuya-takeyama/jr"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
