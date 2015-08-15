@@ -12,13 +12,7 @@ opt.version = Jr::Cli::VERSION
 opt.on('-r FILE', 'require the FILE before execution') {|file| require file }
 opt.parse! ARGV
 
-unless Kernel.respond_to? :itself
-  module Kernel
-    def itself
-      self
-    end
-  end
-end
+require 'jr/cli/core_ext'
 
 trap('INT') { exit 130 }
 
