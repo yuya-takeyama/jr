@@ -47,17 +47,17 @@ Feature: JSON processing
 		{"id":4,"name":"foobar"}
 		{"id":5,"name":"qux"}
 		"""
-		When I run `jr 'select{|j| j[:id].odd? }.map{|j| {name_with_id: j[:name] + " (#{j[:id]})"} }' input.json`
+		When I run `jr 'select{|j| j[:id].odd? }.map{|j| {name: j[:name]} }' input.json`
 		Then the output should contain exactly:
 		"""
 		{
-		  "name_with_id": "foo (1)"
+		  "name": "foo"
 		}
 		{
-		  "name_with_id": "baz (3)"
+		  "name": "baz"
 		}
 		{
-		  "name_with_id": "qux (5)"
+		  "name": "qux"
 		}
 
 		"""
