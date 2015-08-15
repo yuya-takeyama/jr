@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "test-unit"
   spec.add_development_dependency "aruba"
+  spec.add_development_dependency "guard-test"
+  spec.add_development_dependency "guard-cucumber"
 end
