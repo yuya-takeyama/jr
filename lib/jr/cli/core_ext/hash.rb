@@ -4,7 +4,7 @@ class Hash
     name, suffix = split_name_and_suffix(method_name)
     case suffix
     when '?'
-      key? name.to_sym
+      !!self[name.to_sym]
     when '='
       self[name.to_sym] = args[0]
     else

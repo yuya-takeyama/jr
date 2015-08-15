@@ -17,9 +17,21 @@ class HashTest < Test::Unit::TestCase
   end
 
   sub_test_case 'check key existence' do
-    test 'return true if the key exists' do
+    test 'return true if the key exists and truthy' do
       assert do
         {foo: 'bar'}.foo? == true
+      end
+    end
+
+    test 'return false if the key exists but it is false' do
+      assert do
+        {foo: false}.foo? == false
+      end
+    end
+
+    test 'return false if the key exists but it is nil' do
+      assert do
+        {foo: nil}.foo? == false
       end
     end
 
