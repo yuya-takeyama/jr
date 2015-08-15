@@ -20,7 +20,7 @@ guard :test do
   watch('test/test_helper.rb')  { 'test' }
 
   # Non-rails
-  watch(%r{^lib/(.+)\.rb$}) { |m| "test/unit/#{m[1]}_test.rb" }
+  watch(%r{^lib/jr/cli/(.+)\.rb$}) { |m| "test/unit/#{m[1]}_test.rb" }
 end
 
 guard "cucumber" do
