@@ -5,6 +5,9 @@ rvm:
   - 2.1
   - 2.2.2
   - ruby-head
+branches:
+  only:
+    - master
 before_install: gem install bundler -v 1.10.6
 matrix:
   allow_failures:
