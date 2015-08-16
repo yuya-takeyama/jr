@@ -10,6 +10,8 @@ opt.banner  = "jr - Command-line JSON processor for Rubyists [Ver. #{Jr::Cli::VE
               "Usage: jr [options] <jr filter> [file...]"
 opt.version = Jr::Cli::VERSION
 opt.on('-r FILE', 'require the FILE before execution') {|file| require file }
+pretty = true
+opt.on('-c', '--compact-output', 'output each JSON in single line') { pretty = false }
 opt.parse! ARGV
 
 require 'jr/cli/core_ext'
@@ -25,7 +27,7 @@ result = Enumerator.new do |yielder|
   end
 end.lazy.instance_eval(ARGV[0])
 
-encoder = Yajl::Encoder.new(pretty: true)
+encoder = Yajl::Encoder.new(pretty: pretty)
 
 if result.is_a? Array or result.kind_of? Enumerator
   result.each do |data|

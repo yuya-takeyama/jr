@@ -154,3 +154,71 @@ Feature: JSON processing
     "baz"
 
     """
+
+  Scenario: require rubygems using -r option
+    Given a file named "input.json" with:
+    """
+    {"ua":"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}
+    """
+    When I run `jr -r woothee 'map{ |j| j.merge({woothee: Woothee.parse(j.ua)}) }' input.json`
+    Then the output should contain exactly:
+    """
+    {
+      "ua": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+      "woothee": {
+        "name": "Googlebot",
+        "category": "crawler",
+        "os": "UNKNOWN",
+        "os_version": "UNKNOWN",
+        "version": "UNKNOWN",
+        "vendor": "UNKNOWN"
+      }
+    }
+
+    """
+
+  Scenario: Output each JSON in single line using --compact-output option
+    Given a file named "input.json" with:
+    """
+    {
+      "name": "foo"
+    }
+    {
+      "name": "bar"
+    }
+    {
+      "name": "baz"
+    }
+
+    """
+    When I run `jr --compact-output 'self' input.json`
+    Then the output should contain exactly:
+    """
+    {"name":"foo"}
+    {"name":"bar"}
+    {"name":"baz"}
+
+    """
+
+  Scenario: Output each JSON in single line using -c option
+    Given a file named "input.json" with:
+    """
+    {
+      "name": "foo"
+    }
+    {
+      "name": "bar"
+    }
+    {
+      "name": "baz"
+    }
+
+    """
+    When I run `jr -c 'self' input.json`
+    Then the output should contain exactly:
+    """
+    {"name":"foo"}
+    {"name":"bar"}
+    {"name":"baz"}
+
+    """
