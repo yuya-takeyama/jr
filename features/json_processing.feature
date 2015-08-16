@@ -176,3 +176,49 @@ Feature: JSON processing
     }
 
     """
+
+  Scenario: Output each JSON in single line using --compact-output option
+    Given a file named "input.json" with:
+    """
+    {
+      "name": "foo"
+    }
+    {
+      "name": "bar"
+    }
+    {
+      "name": "baz"
+    }
+
+    """
+    When I run `jr --compact-output 'self' input.json`
+    Then the output should contain exactly:
+    """
+    {"name":"foo"}
+    {"name":"bar"}
+    {"name":"baz"}
+
+    """
+
+  Scenario: Output each JSON in single line using -c option
+    Given a file named "input.json" with:
+    """
+    {
+      "name": "foo"
+    }
+    {
+      "name": "bar"
+    }
+    {
+      "name": "baz"
+    }
+
+    """
+    When I run `jr -c 'self' input.json`
+    Then the output should contain exactly:
+    """
+    {"name":"foo"}
+    {"name":"bar"}
+    {"name":"baz"}
+
+    """
