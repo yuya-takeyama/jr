@@ -33,4 +33,26 @@ Feature: core_ext
       "is_crawler": true
     }
 
+  """
+
+  Scenario: unwrap Array and Hash
+    Given a file named "input.json" with:
+    """
+    ["a","b",["c"]]
+    {"a":"A","b":"B","c":{"cc":"CC"}}
+    """
+    When I run `jr 'unwrap' input.json`
+    Then the output should contain exactly:
+    """
+    "a"
+    "b"
+    [
+      "c"
+    ]
+    "A"
+    "B"
+    {
+      "cc": "CC"
+    }
+
     """
