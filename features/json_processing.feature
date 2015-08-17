@@ -222,3 +222,26 @@ Feature: JSON processing
     {"name":"baz"}
 
     """
+
+  Scenario: Output strings as raw output using --raw-output option
+    Given a file named "input.json" with:
+    """
+    {
+      "name": "foo"
+    }
+    {
+      "name": "bar"
+    }
+    {
+      "name": "baz"
+    }
+
+    """
+    When I run `jr --raw-output 'map(&:name)' input.json`
+    Then the output should contain exactly:
+    """
+    foo
+    bar
+    baz
+
+    """
