@@ -12,6 +12,8 @@ opt.version = Jr::Cli::VERSION
 opt.on('-r FILE', 'require the FILE before execution') {|file| require file }
 pretty = true
 opt.on('-c', '--compact-output', 'output each JSON in single line') { pretty = false }
+raw_output = false
+opt.on('--raw-output', 'output strings as raw output') { raw_output = true }
 opt.parse! ARGV
 
 require 'jr/cli/core_ext'
@@ -28,11 +30,18 @@ result = Enumerator.new do |yielder|
 end.lazy.instance_eval(ARGV[0])
 
 encoder = Yajl::Encoder.new(pretty: pretty)
+print_json = ->(data) do
+  if raw_output and data.is_a? String
+    puts data
+  else
+    puts encoder.encode(data)
+  end
+end
 
 if result.is_a? Array or result.kind_of? Enumerator
   result.each do |data|
-    puts encoder.encode(data)
+    print_json.call data
   end
 else
-  puts encoder.encode(result)
+  print_json.call result
 end
