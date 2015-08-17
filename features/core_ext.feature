@@ -56,3 +56,17 @@ Feature: core_ext
     }
 
     """
+
+  Scenario: number of JSON
+    Given a file named "input.json" with:
+    """
+    {"name":"foo"}
+    {"name":"bar"}
+    {"name":"baz"}
+    """
+    When I run `jr 'size' input.json`
+    Then the output should contain exactly:
+    """
+    3
+
+    """
