@@ -64,7 +64,7 @@ $ jr 'unwrap' repos.json
 `Enumerable` has many useful methods and you can transform data with them.
 
 ```
-$j r 'unwrap.group_by(&:language).map{|k, v| [k, v.size] }.sort_by{|k, v| -v }' repos.json
+$ jr 'unwrap.group_by(&:language).map{|k, v| [k, v.size] }.sort_by{|k, v| -v }' repos.json
 [
   "Ruby",
   28
