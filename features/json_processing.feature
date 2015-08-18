@@ -160,7 +160,7 @@ Feature: JSON processing
     """
     {"ua":"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}
     """
-    When I run `jr -r woothee 'map{ |j| j.merge({woothee: Woothee.parse(j.ua)}) }' input.json`
+    When I run `jr --require woothee 'map{ |j| j.merge({woothee: Woothee.parse(j.ua)}) }' input.json`
     Then the output should contain exactly:
     """
     {

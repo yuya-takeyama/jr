@@ -10,11 +10,11 @@ opt = OptionParser.new
 opt.banner  = "jr - Command-line JSON processor for Rubyists [Ver. #{Jr::Cli::VERSION}]\n\n" +
               "Usage: jr [options] <jr filter> [file...]"
 opt.version = Jr::Cli::VERSION
-opt.on('-r FILE', 'require the FILE before execution') {|file| require file }
+opt.on('--require FILE', 'require the FILE before execution') {|file| require file }
 pretty = true
 opt.on('-c', '--compact-output', 'output each JSON in single line') { pretty = false }
 raw_output = false
-opt.on('--raw-output', 'output strings as raw output') { raw_output = true }
+opt.on('-r', '--raw-output', 'output strings as raw output') { raw_output = true }
 color_output = STDOUT.tty?
 opt.on('--color-output', '-C', 'output with colors even if writing to a pipe or a file') { color_output = true }
 opt.on('--monochrome-output', '-M', 'output without colors') { color_output = false }
