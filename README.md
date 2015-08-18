@@ -40,67 +40,69 @@ Let's process JSON of GitHub API!
 At first, download JSON of repos into your local to avoid API rate limit.
 
 ```
-$ curl -s 'https://api.github.com/users/yuya-takeyama/repos' > repos.json
+$ curl -s 'https://api.github.com/users/yuya-takeyama/repos?per_page=100' > repos.json
 ```
 
-### show repositories
+### Unwrap Array with `Enumerable#unwrap`
 
-Because response from `GET /users/:username/repos` is wrapped with `Array`, flatten it by `#flat_map`.  
+Because response from `GET /users/:username/repos` is wrapped with `Array`, unwrap it using `Enumerable#unwrap`.  
+It's a built-in method of jr.  
 You'll get stream of JSON reperesents repositories.
 
 ```
-$ jr 'flat_map(&:itself)' repos.json
+$ jr 'unwrap' repos.json
 ```
 
-Pro Tip: `Kernel#itself` is an identity function implemented in Ruby 2.2.0, but `jr` provides it for Ruby 2.1.0 or earlier versions.
+### Aggregate data with methods of `Enumerable`
 
-### map to reduce data
-
-Default response has too much informations.  
-So reduce data using `#map` method.
+`Enumerable` has many useful methods and you can transform data with them.
 
 ```
-$ jr 'flat_map(&:itself).map{|j| {name: j[:name], desc: j[:description], lang: j[:language]} }' repos.json
-{
-  "name": "acne",
-  "desc": "Simple DI container for PHP < 5.3",
-  "lang": "PHP"
-}
-{
-  "name": "akb48_recognizer",
-  "desc": "AKB48 recognition using Face.com API",
-  "lang": "Ruby"
-}
+$j r 'unwrap.group_by(&:language).map{|k, v| [k, v.size] }.sort_by{|k, v| -v }' repos.json
+[
+  "Ruby",
+  28
+]
+[
+  "PHP",
+  22
+]
+[
+  "Go",
+  17
+]
 (...omitted...)
-{
-  "name": "disco-dance.tv",
-  "desc": "For Socket.IO learning.",
-  "lang": "JavaScript"
-}
-{
-  "name": "docker-plenv-vanilla",
-  "desc": null,
-  "lang": "Shell"
-}
+[
+  "VimL",
+  1
+]
+[
+  "CoffeeScript",
+  1
+]
+[
+  "Perl",
+  1
+]
 ```
 
-### aggregate by language
+### Output as text
 
-Repositories have its primary language which is detected automatically.  
-Let's aggregate it and count by languages.
+You can transform JSONs into String and output as raw text using `-r` option.
 
 ```
-$ jr 'flat_map(&:itself).map{|j| {name: j[:name], desc: j[:description], lang: j[:language]} }.group_by{|j| j[:lang] }.map{|l, v| [l, v.size ] }.to_h' repos.json
-{
-  "PHP": 10,
-  "Ruby": 12,
-  "": 1,
-  "JavaScript": 3,
-  "CoffeeScript": 1,
-  "CSS": 1,
-  "Go": 1,
-  "Shell": 1
-}
+$ jr 'unwrap.group_by(&:language).map{|k, v| [k, v.size] }.sort_by{|k, v| -v }.map{|l, s| "#{s}\t#{l}" }' -r repos.json
+28      Ruby
+22      PHP
+17      Go
+12      JavaScript
+11
+3       CSS
+2       Shell
+2       C
+1       VimL
+1       CoffeeScript
+1       Perl
 ```
 
 ## Basic mechanism
