@@ -4,6 +4,7 @@
 require 'jr/cli/version'
 require 'optparse'
 require 'yajl'
+require 'coderay'
 
 opt = OptionParser.new
 opt.banner  = "jr - Command-line JSON processor for Rubyists [Ver. #{Jr::Cli::VERSION}]\n\n" +
@@ -14,6 +15,9 @@ pretty = true
 opt.on('-c', '--compact-output', 'output each JSON in single line') { pretty = false }
 raw_output = false
 opt.on('--raw-output', 'output strings as raw output') { raw_output = true }
+color_output = STDOUT.tty?
+opt.on('--color-output', '-C', 'output with colors even if writing to a pipe or a file') { color_output = true }
+opt.on('--monochrome-output', '-M', 'output without colors') { color_output = false }
 opt.parse! ARGV
 
 require 'jr/cli/core_ext'
@@ -34,7 +38,11 @@ print_json = ->(data) do
   if raw_output and data.is_a? String
     puts data
   else
-    puts encoder.encode(data)
+    if color_output
+      puts CodeRay.scan(encoder.encode(data), :json).terminal
+    else
+      puts encoder.encode(data)
+    end
   end
 end
 
