@@ -1,3 +1,12 @@
+## 0.2.0 (2015-08-19)
+
+* [BREAKING CHANGE] Now `-r` is alias for `--raw-output` and use `--require` to require library
+* Colorize output by default
+* Add core\_ext modules for `Hash`, `Enumerable` and `Enumerator`
+* Add `--compact-output` option
+* Add `--color-output` option
+* Add `--monochrome-output` option
+
 ## 0.1.0 (2014-11-06)
 
 * Add `-r` option to require library

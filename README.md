@@ -37,7 +37,6 @@ You can also read JSON not from files but from STDIN.
     -r, --raw-output                 output strings as raw output
     -C, --color-output               output with colors even if writing to a pipe or a file
     -M, --monochrome-output          output without colors
-
 ```
 
 ## jr filter tutorial
