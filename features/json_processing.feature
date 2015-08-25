@@ -245,3 +245,20 @@ Feature: JSON processing
     baz
 
     """
+
+  Scenario: Read each line as string using --raw-input option
+    Given a file named "input.json" with:
+    """
+    foo
+    bar
+    baz
+
+    """
+    When I run `jr --raw-input 'self' input.json`
+    Then the output should contain exactly:
+    """
+    "foo"
+    "bar"
+    "baz"
+
+    """
