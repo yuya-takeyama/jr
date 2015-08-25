@@ -15,6 +15,8 @@ pretty = true
 opt.on('-c', '--compact-output', 'output each JSON in single line') { pretty = false }
 raw_output = false
 opt.on('-r', '--raw-output', 'output strings as raw output') { raw_output = true }
+raw_input = false
+opt.on('-R', '--raw-input', 'read each line as string') { raw_input = true }
 color_output = STDOUT.tty?
 opt.on('--color-output', '-C', 'output with colors even if writing to a pipe or a file') { color_output = true }
 opt.on('--monochrome-output', '-M', 'output without colors') { color_output = false }
@@ -25,13 +27,26 @@ require 'jr/cli/core_ext'
 trap('INT') { exit 130 }
 
 inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
-result = Enumerator.new do |yielder|
-  inputs.each do |input|
-    Yajl::Parser.new(symbolize_keys: true).parse(input) do |d|
-      yielder.yield d
+
+if raw_input
+  input_enumerator = Enumerator.new do |yielder|
+    inputs.each do |input|
+      input.each_line do |line|
+        yielder.yield line.chop
+      end
     end
-  end
-end.lazy.instance_eval(ARGV[0])
+  end.lazy
+else
+  input_enumerator = Enumerator.new do |yielder|
+    inputs.each do |input|
+      Yajl::Parser.new(symbolize_keys: true).parse(input) do |d|
+        yielder.yield d
+      end
+    end
+  end.lazy
+end
+
+result = input_enumerator.instance_eval(ARGV[0])
 
 encoder = Yajl::Encoder.new(pretty: pretty)
 print_json = ->(data) do
