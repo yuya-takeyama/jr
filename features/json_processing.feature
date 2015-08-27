@@ -262,3 +262,49 @@ Feature: JSON processing
     "baz"
 
     """
+
+  Scenario: Read filter from file using -f option.
+    Given a file named "input.json" with:
+    """
+    {"ua":"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}
+    {"ua":"Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3"}
+    {"ua":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:21.0) Gecko/20100101 Firefox/21.0"}
+
+    """
+    And a file named "filter.rb" with:
+    """
+    require 'woothee'
+
+    select { |j| not Woothee.is_crawler(j.ua) }
+      .map { |j| Woothee.parse(j.ua).name }
+    """
+    When I run `jr -f filter.rb input.json`
+    Then the output should contain exactly:
+    """
+    "Safari"
+    "Firefox"
+
+    """
+
+  Scenario: Read filter from file using --from-file option.
+    Given a file named "input.json" with:
+    """
+    {"ua":"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}
+    {"ua":"Mozilla/5.0 (iPhone; CPU iPhone OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3"}
+    {"ua":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:21.0) Gecko/20100101 Firefox/21.0"}
+
+    """
+    And a file named "filter.rb" with:
+    """
+    require 'woothee'
+
+    select { |j| not Woothee.is_crawler(j.ua) }
+      .map { |j| Woothee.parse(j.ua).name }
+    """
+    When I run `jr --from-file filter.rb input.json`
+    Then the output should contain exactly:
+    """
+    "Safari"
+    "Firefox"
+
+    """
