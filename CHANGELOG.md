@@ -1,3 +1,10 @@
+## 0.3.0 (2015-08-28)
+
+* Add `--raw-input` option
+* Add `--color-output` option
+* Add `--monochrome-output` option
+* Do indentation when filter is omitted
+
 ## 0.2.0 (2015-08-19)
 
 * [BREAKING CHANGE] Now `-r` is alias for `--raw-output` and use `--require` to require library
