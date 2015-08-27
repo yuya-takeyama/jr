@@ -2,6 +2,28 @@ Feature: JSON processing
 
   jr is jq like JSON processor for Rubyist
 
+  Scenario: Indent JSON
+    Given a file named "input.json" with:
+    """
+    {"name":"foo"}
+    {"name":"bar"}
+    {"name":"baz"}
+    """
+    When I run `cat input.json | jr` in bash
+    Then the output should contain exactly:
+    """
+    {
+      "name": "foo"
+    }
+    {
+      "name": "bar"
+    }
+    {
+      "name": "baz"
+    }
+
+    """
+
   Scenario: Filter single JSON of Object
     Given a file named "input.json" with:
     """

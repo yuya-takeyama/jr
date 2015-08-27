@@ -36,7 +36,7 @@ if from_file
   jr_filter = open(filter_file).read
 else
   inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
-  jr_filter = ARGV[0]
+  jr_filter = ARGV[0] || 'self'
 end
 
 if null_input
