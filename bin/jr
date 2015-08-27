@@ -10,9 +10,12 @@ opt = OptionParser.new
 opt.banner  = "jr - Command-line JSON processor for Rubyists [Ver. #{Jr::Cli::VERSION}]\n\n" +
               "Usage: jr [options] <jr filter> [file...]"
 opt.version = Jr::Cli::VERSION
-opt.on('--require FILE', 'require the FILE before execution') {|file| require file }
+opt.on('--require FILE', 'require the FILE before execution') { |file| require file }
 pretty = true
 opt.on('-c', '--compact-output', 'output each JSON in single line') { pretty = false }
+from_file = false
+filter_file = nil
+opt.on('-f', '--from-file FILE', 'read filter from file') { |file| from_file = true; filter_file = file }
 raw_output = false
 opt.on('-r', '--raw-output', 'output strings as raw output') { raw_output = true }
 raw_input = false
@@ -26,7 +29,13 @@ require 'jr/cli/core_ext'
 
 trap('INT') { exit 130 }
 
-inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
+if from_file
+  inputs = ARGV[0] ? ARGV[0..-1].map {|f| open f } : [STDIN]
+  jr_filter = open(filter_file).read
+else
+  inputs = ARGV[1] ? ARGV[1..-1].map {|f| open f } : [STDIN]
+  jr_filter = ARGV[0]
+end
 
 if raw_input
   input_enumerator = Enumerator.new do |yielder|
@@ -46,7 +55,7 @@ else
   end.lazy
 end
 
-result = input_enumerator.instance_eval(ARGV[0])
+result = input_enumerator.instance_eval(jr_filter)
 
 encoder = Yajl::Encoder.new(pretty: pretty)
 print_json = ->(data) do
