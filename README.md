@@ -34,6 +34,7 @@ You can also read JSON not from files but from STDIN.
 ```
         --require FILE               require the FILE before execution
     -c, --compact-output             output each JSON in single line
+    -f, --from-file FILE             read filter from file
     -r, --raw-output                 output strings as raw output
     -R, --raw-input                  read each line as string
     -C, --color-output               output with colors even if writing to a pipe or a file
