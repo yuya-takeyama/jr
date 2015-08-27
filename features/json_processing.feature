@@ -308,3 +308,23 @@ Feature: JSON processing
     "Firefox"
 
     """
+
+  Scenario: Read no file and build JSONs from scratch using --null-input option.
+    When I run `jr --null-input '1.upto(3).map{ |n| "%02d" % n }'`
+    Then the output should contain exactly:
+    """
+    "01"
+    "02"
+    "03"
+
+    """
+
+  Scenario: Read no file and build JSONs from scratch using -n option.
+    When I run `jr -n '1.upto(3).map{ |n| "%02d" % n }'`
+    Then the output should contain exactly:
+    """
+    "01"
+    "02"
+    "03"
+
+    """
