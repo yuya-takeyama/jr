@@ -1,3 +1,7 @@
+## 0.3.1 (2015-08-29)
+
+* Any `Enumerable` object except for `Hash` is enumerated
+
 ## 0.3.0 (2015-08-28)
 
 * Add `--raw-input` option
