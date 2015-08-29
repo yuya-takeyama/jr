@@ -40,6 +40,7 @@ You can also read JSON not from files but from STDIN.
     -C, --color-output               output with colors even if writing to a pipe or a file
     -M, --monochrome-output          output without colors
     -n, --null-input                 use null as input instead of any files
+        --unbuffered                 output each JSON without buffering
 ```
 
 ## jr filter tutorial
