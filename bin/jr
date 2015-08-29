@@ -6,6 +6,9 @@ require 'optparse'
 require 'yajl'
 require 'coderay'
 
+DEFAULT_BUFFER_SIZE    = 8192
+UNBUFFERED_BUFFER_SIZE = 1
+
 opt = OptionParser.new
 opt.banner  = "jr - Command-line JSON processor for Rubyists [Ver. #{Jr::Cli::VERSION}]\n\n" +
               "Usage: jr [options] <jr filter> [file...]"
@@ -25,6 +28,9 @@ opt.on('-C', '--color-output',      'output with colors even if writing to a pip
 opt.on('-M', '--monochrome-output', 'output without colors')                                  { color_output = false }
 null_input = false
 opt.on('-n', '--null-input',        'use null as input instead of any files')                 { null_input = true }
+unbuffered = false
+buffer_size = DEFAULT_BUFFER_SIZE
+opt.on('--unbuffered',              'output each JSON without buffering')                     { unbuffered = true; buffer_size = UNBUFFERED_BUFFER_SIZE }
 opt.parse! ARGV
 
 require 'jr/cli/core_ext'
@@ -53,7 +59,7 @@ else
   else
     input_enumerator = Enumerator.new do |yielder|
       inputs.each do |input|
-        Yajl::Parser.new(symbolize_keys: true).parse(input) do |d|
+        Yajl::Parser.new(symbolize_keys: true).parse(input, buffer_size) do |d|
           yielder.yield d
         end
       end
@@ -79,6 +85,7 @@ end
 if result.is_a? Enumerable and !result.is_a? Hash
   result.each do |data|
     print_json.call data
+    STDOUT.flush if unbuffered
   end
 else
   print_json.call result
