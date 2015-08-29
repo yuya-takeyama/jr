@@ -350,3 +350,13 @@ Feature: JSON processing
     "03"
 
     """
+
+  Scenario: Enumerate Range object.
+    When I run `jr --null-input '1..3'`
+    Then the output should contain exactly:
+    """
+    1
+    2
+    3
+
+    """
