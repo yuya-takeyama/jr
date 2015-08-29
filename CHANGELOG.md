@@ -1,3 +1,7 @@
+## 0.4.0 (2015-08-29)
+
+* Add `--unbuffered` option
+
 ## 0.3.1 (2015-08-29)
 
 * Any `Enumerable` object except for `Hash` is enumerated
