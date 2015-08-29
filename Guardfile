@@ -24,6 +24,8 @@ guard :test do
 end
 
 guard "cucumber" do
+  watch('bin/jr') { "features" }
+
   watch(%r{^lib/.+\.rb$}) { "features" }
 
   watch(%r{^features/.+\.feature$})
