@@ -76,7 +76,7 @@ print_json = ->(data) do
   end
 end
 
-if result.is_a? Array or result.kind_of? Enumerator
+if result.is_a? Enumerable #and !result.is_a? Hash
   result.each do |data|
     print_json.call data
   end
