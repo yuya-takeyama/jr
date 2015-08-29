@@ -360,3 +360,13 @@ Feature: JSON processing
     3
 
     """
+
+  Scenario: Hash is not enumerated.
+    When I run `jr --null-input '{foo: "FOO"}'`
+    Then the output should contain exactly:
+    """
+    {
+      "foo": "FOO"
+    }
+
+    """
