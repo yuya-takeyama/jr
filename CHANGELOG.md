@@ -4,11 +4,11 @@
 
 ### Changed
 
-* Dropped support for Ruby 2.0 and 2.1, and support Ruby 2.3 and 2.4
+* Dropped support for Ruby 2.0 and 2.1, and support Ruby 2.3 and 2.4 [#15](https://github.com/yuya-takeyama/jr/pull/15) [#16](https://github.com/yuya-takeyama/jr/pull/16)
 
 ### Removed
 
-* `Kernel#itself` method as a core\_ext
+* `Kernel#itself` method as a core\_ext [#16](https://github.com/yuya-takeyama/jr/pull/16)
 
 ## [0.4.0] - 2015-08-29
 
