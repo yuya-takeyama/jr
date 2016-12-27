@@ -1,5 +1,15 @@
 # Change Log
 
+## [0.5.0] - 2016-12-28
+
+### Changed
+
+* Dropped support for Ruby 2.0 and 2.1, and support Ruby 2.3 and 2.4
+
+### Removed
+
+* `Kernel#itself` method as a core\_ext
+
 ## [0.4.0] - 2015-08-29
 
 ### Added
