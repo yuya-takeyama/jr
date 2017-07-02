@@ -71,7 +71,7 @@ result = input_enumerator.instance_eval(jr_filter)
 
 encoder = Yajl::Encoder.new(pretty: pretty)
 print_json = ->(data) do
-  if raw_output and data.is_a? String
+  if raw_output && (data.is_a?(String) || data.is_a?(Symbol))
     puts data
   else
     if color_output

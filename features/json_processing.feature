@@ -268,6 +268,25 @@ Feature: JSON processing
 
     """
 
+  Scenario: Output symbols as raw output using --raw-output option
+    Given a file named "input.json" with:
+    """
+    {
+      "foo": true,
+      "bar": true,
+      "baz": true
+    }
+
+    """
+    When I run `jr --raw-output 'map(&:keys).unwrap' input.json`
+    Then the output should contain exactly:
+    """
+    foo
+    bar
+    baz
+
+    """
+
   Scenario: Read each line as string using --raw-input option
     Given a file named "input.json" with:
     """
