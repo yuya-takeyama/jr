@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.5.1] - 2017-07-02
+
+### Fixed
+
+* `--raw-output` option to show `Symbol` as a raw `String` [#19](https://github.com/yuya-takeyama/jr/pull/19)
+
 ## [0.5.0] - 2016-12-28
 
 ### Changed
