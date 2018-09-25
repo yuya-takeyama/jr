@@ -1,0 +1,8 @@
+*.md
+*.yml
+*.txt
+/features
+/pkg
+/resources
+/test
+/tmp
