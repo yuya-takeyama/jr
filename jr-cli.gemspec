@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "yajl-ruby", "1.3.1"
   spec.add_runtime_dependency "coderay", "1.1.3"
 
-  spec.add_development_dependency "bundler", "2.2.9"
+  spec.add_development_dependency "bundler", "2.3.17"
   spec.add_development_dependency "rake", "12.0.0"
   spec.add_development_dependency "test-unit", "3.2.9"
   spec.add_development_dependency "aruba", "0.9.0"
