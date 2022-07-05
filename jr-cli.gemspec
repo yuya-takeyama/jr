@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'aruba', '0.14.14'
   spec.add_development_dependency 'guard', '2.18.0'
   spec.add_development_dependency 'guard-test', '2.0.8'
-  spec.add_development_dependency 'guard-cucumber', '1.6.0'
+  spec.add_development_dependency 'guard-cucumber', '3.0.0'
   spec.add_development_dependency 'woothee', '1.13.0'
 end
