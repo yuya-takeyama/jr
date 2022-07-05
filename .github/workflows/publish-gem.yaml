@@ -15,10 +15,20 @@ jobs:
         with:
           ruby-version: '3.1'
           bundler-cache: true
-      - name: Release Gem
-        if: contains(github.ref, 'refs/tags/v')
-        uses: cadwallion/publish-rubygems-action@v1.0.0
+      - name: Setup credentials
+        run: |
+          mkdir -p ~/.gem
+
+          cat << EOF > ~/.gem/credentials
+          ---
+          :github: Bearer ${GITHUB_TOKEN}
+          :rubygems_api_key: ${RUBYGEMS_API_KEY}
+          EOF
+
+          chmod 0600 ~/.gem/credentials
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-          RELEASE_COMMAND: bundle exec rake release
+      - name: Release Gem
+        run: |
+          bundle exec rake release
