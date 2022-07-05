@@ -1,5 +1,24 @@
 {
   extends: ['config:base'],
+
+  prHourlyLimit: 0,
+  rebaseWhen: 'conflicted',
+  prConcurrentLimit: 10,
+
+  labels: [
+    'renovate:{{depName}}',
+    'renovate:{{depName}}/{{newVersion}}',
+    'datasource:{{datasource}}',
+  ],
+
+  packageRules: [
+    {
+      matchUpdateTypes: ['minor', 'patch', 'pin'],
+      automerge: true,
+      platformAutomerge: true,
+    },
+  ],
+
   regexManagers: [
     {
       fileMatch: ['^*.gemspec'],
