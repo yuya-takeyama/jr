@@ -1,5 +1,16 @@
 # Change Log
 
+## [0.6.0] - 2022-07-06
+
+### Added
+
+* Support Ruby 3.0 and 3.1 [#43](https://github.com/yuya-takeyama/jr/pull/43) [#46](https://github.com/yuya-takeyama/jr/pull/46)
+
+### Fixed
+
+* Applied the security fix for yajl-ruby (CVE-2022-24795) [#38](https://github.com/yuya-takeyama/jr/pull/38)
+* Applied many updates for development dependencies
+
 ## [0.5.1] - 2017-07-02
 
 ### Fixed
