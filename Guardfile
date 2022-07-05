@@ -23,7 +23,8 @@ guard :test do
   watch(%r{^lib/jr/cli/(.+)\.rb$}) { |m| "test/unit/#{m[1]}_test.rb" }
 end
 
-guard "cucumber" do
+guard "cucumber", notification: false do
+
   watch('bin/jr') { "features" }
 
   watch(%r{^lib/.+\.rb$}) { "features" }
