@@ -2,12 +2,11 @@
   extends: ['config:base'],
   regexManagers: [
     {
-      fileMatch: ['\\.gemspec$'],
+      fileMatch: ['^*.gemspec'],
       matchStrings: [
-        '^.*add.*dependency\\s[\'"](?<depName>[^\'"]*)[\'"],\\s*[\'"](?<currentValue>[^\'"]*)[\'"]',
+        ".*add.*dependency '(?<depName>.*?)', '(?<currentValue>.*?)'",
       ],
       datasourceTemplate: 'rubygems',
-      versioningTemplate: 'ruby',
     },
   ],
 }
