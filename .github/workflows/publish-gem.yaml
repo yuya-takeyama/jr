@@ -21,4 +21,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-          RELEASE_COMMAND: rake release
+          RELEASE_COMMAND: bundle exec rake release
