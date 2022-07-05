@@ -16,6 +16,7 @@ jobs:
         ruby:
           - '2.7'
           - '3.0'
+          - '3.1'
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
