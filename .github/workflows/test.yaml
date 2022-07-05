@@ -12,6 +12,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          - macos-latest
         ruby:
           - '2.7'
           - '3.0'
