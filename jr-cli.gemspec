@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'coderay', '1.1.3'
 
   spec.add_development_dependency 'bundler', '2.3.18'
-  spec.add_development_dependency 'rake', '13.0.6'
+  spec.add_development_dependency 'rake', '13.1.0'
   spec.add_development_dependency 'test-unit', '3.5.3'
   spec.add_development_dependency 'aruba', '2.1.0'
   spec.add_development_dependency 'guard', '2.18.0'
