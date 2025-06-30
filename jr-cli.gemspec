@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '>= 2.4.21'
   spec.add_development_dependency 'rake', '13.3.0'
-  spec.add_development_dependency 'test-unit', '3.6.8'
+  spec.add_development_dependency 'test-unit', '3.6.9'
   spec.add_development_dependency 'aruba', '2.3.1'
   spec.add_development_dependency 'guard', '2.19.1'
   spec.add_development_dependency 'guard-test', '2.0.8'
