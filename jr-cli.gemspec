@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '13.3.1'
   spec.add_development_dependency 'test-unit', '3.7.7'
   spec.add_development_dependency 'aruba', '2.3.3'
-  spec.add_development_dependency 'guard', '2.19.1'
+  spec.add_development_dependency 'guard', '2.20.0'
   spec.add_development_dependency 'guard-test', '2.0.8'
   spec.add_development_dependency 'guard-cucumber', '3.0.0'
   spec.add_development_dependency 'woothee', '1.13.0'
